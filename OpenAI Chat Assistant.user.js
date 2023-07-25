@@ -10,7 +10,7 @@
 
 // Add a checkbox for enabling or disabling the script
 const controlDiv = document.createElement('div');
-controlDiv.innerHTML = '<label><input id="autoResponderSwitch" type="checkbox" checked />启用自动回复</label>';
+controlDiv.innerHTML = '<label><input id="autoResponderSwitch" type="checkbox" />启用自动回复</label>';
 controlDiv.style.position = 'fixed';
 controlDiv.style.bottom = '20px';
 controlDiv.style.right = '20px';
