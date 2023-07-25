@@ -3,21 +3,32 @@
 // @namespace   Violentmonkey Scripts
 // @match       https://chat.openai.com/*
 // @grant       none
-// @version     1.0
+// @version     0.2.0
 // @description Keep input as 'w' when it's empty and click the button when it's enabled
 // @author      OpenAI
 // ==/UserScript==
 
+// Add a checkbox for enabling or disabling the script
+const controlDiv = document.createElement('div');
+controlDiv.innerHTML = '<label><input id="autoResponderSwitch" type="checkbox" checked />启用自动回复</label>';
+controlDiv.style.position = 'fixed';
+controlDiv.style.bottom = '20px';
+controlDiv.style.right = '20px';
+document.body.appendChild(controlDiv);
+
 function checkButtonAndAct() {
+    // Only execute the script when the checkbox is checked
+    if (!document.querySelector("#autoResponderSwitch").checked) {
+        return;
+    }
+
     const textarea = document.querySelector("#prompt-textarea");
     const button = document.querySelector("button[class*='absolute p-1 rounded-md']");
 
     if (textarea) {
         if (textarea.value.trim() === '') {
             textarea.value = 'w';
-            // Dispatch 'input' event
             textarea.dispatchEvent(new Event('input', { bubbles: true }));
-            // Dispatch 'keydown' event
             textarea.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true }));
         }
         if (button && !button.disabled) {
